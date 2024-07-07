@@ -2064,7 +2064,6 @@ static bool test_signature(ykpiv_state *state, enum enum_slot slot,
       case YKPIV_ALGO_ECCP384:
         {
           EC_KEY *ec = EVP_PKEY_get1_EC_KEY(pubkey);
-          fprintf(stderr,"ec=%p\n", ec);
           if(ECDSA_verify(0, data, (int)data_len, signature, (int)sig_len, ec) == 1) {
             fprintf(stderr, "Successful ECDSA verification.\n");
             ret = true;
@@ -2171,7 +2170,7 @@ static bool test_decipher(ykpiv_state *state, enum enum_slot slot,
     if(YKPIV_IS_RSA(algorithm)) {
       unsigned char secret[32] = {0};
       unsigned char secret2[32] = {0};
-      unsigned char data[256] = {0};
+      unsigned char data[512] = {0};
       int len;
       size_t len2 = sizeof(data);
       RSA *rsa = EVP_PKEY_get1_RSA(pubkey);
